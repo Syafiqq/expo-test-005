@@ -1,21 +1,24 @@
 /* eslint-disable max-lines-per-function */
 import type {ConfigContext, ExpoConfig} from '@expo/config';
 
+import {ClientEnv, Env} from './env';
 
 export default ({config}: ConfigContext): ExpoConfig => ({
   ...config,
   platforms: ['ios', 'android'],
-  name: 'drivers-app',
-  slug: 'drivers-app',
-  description: 'People\'s Linen Drivers App',
-  version: '1.0.0',
+  name: Env.APP_NAME,
+  slug: Env.APP_NAME,
+  description: Env.APP_DESCRIPTION,
+  owner: Env.EXPO_ACCOUNT_OWNER,
+  version: Env.APP_VERSION.toString(),
   orientation: 'portrait',
   icon: './assets/images/icon.png',
-  scheme: 'myapp',
+  scheme: Env.APP_SCHEME,
   userInterfaceStyle: 'automatic',
   ios: {
     ...config.ios,
     supportsTablet: true,
+    bundleIdentifier: Env.APP_IOS_BUNDLE_ID,
   },
   android: {
     ...config.android,
@@ -24,6 +27,7 @@ export default ({config}: ConfigContext): ExpoConfig => ({
       foregroundImage: './assets/images/adaptive-icon.png',
       backgroundColor: '#ffffff'
     },
+    package: Env.APP_ANDROID_PACKAGE_NAME
   },
   web: {
     ...config.web,
@@ -42,5 +46,9 @@ export default ({config}: ConfigContext): ExpoConfig => ({
   },
   extra: {
     ...config.extra,
+    ...ClientEnv,
+    eas: {
+      projectId: Env.EAS_PROJECT_ID,
+    },
   }
 });
