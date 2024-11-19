@@ -1,5 +1,8 @@
 import {SplashScreen, Stack} from "expo-router";
+import {Provider} from "inversify-react";
 import React, {useCallback, useEffect} from "react";
+
+import container from "@/di/container";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -15,9 +18,11 @@ export default function RootLayout() {
 
 function Providers({children}: { children: React.ReactNode }) {
   return (
-    <FirstTimeSetup>
-      {children}
-    </FirstTimeSetup>
+    <Provider container={() => container}>
+      <FirstTimeSetup>
+        {children}
+      </FirstTimeSetup>
+    </Provider>
   )
 }
 
