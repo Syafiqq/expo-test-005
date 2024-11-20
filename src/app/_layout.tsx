@@ -8,6 +8,7 @@ import React, {useCallback, useEffect} from "react";
 import {StyleSheet} from "react-native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {KeyboardProvider} from "react-native-keyboard-controller";
+import Toast from "react-native-toast-message";
 
 import {useThemeConfig} from "@/core/react-navigation/use-theme-config";
 import queryClient from "@/core/react-query";
@@ -41,6 +42,7 @@ function Providers({children}: { children: React.ReactNode }) {
                 <BottomSheetModalProvider>
                   <FirstTimeSetup>
                     {children}
+                    <Toast/>
                   </FirstTimeSetup>
                 </BottomSheetModalProvider>
               </ThemeProvider>
