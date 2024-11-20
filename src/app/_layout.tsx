@@ -3,6 +3,8 @@ import {QueryClientProvider} from "@tanstack/react-query";
 import {SplashScreen, Stack} from "expo-router";
 import {Provider} from "inversify-react";
 import React, {useCallback, useEffect} from "react";
+import {StyleSheet} from "react-native";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 import queryClient from "@/core/react-query";
 import database from "@/data/datasource/local/impl/watermelon";
@@ -22,15 +24,19 @@ export default function RootLayout() {
 
 function Providers({children}: { children: React.ReactNode }) {
   return (
-    <Provider container={() => container}>
-      <DatabaseProvider database={database}>
-        <QueryClientProvider client={queryClient}>
-          <FirstTimeSetup>
-            {children}
-          </FirstTimeSetup>
-        </QueryClientProvider>
-      </DatabaseProvider>
-    </Provider>
+    <GestureHandlerRootView
+      style={styles.container}
+    >
+      <Provider container={() => container}>
+        <DatabaseProvider database={database}>
+          <QueryClientProvider client={queryClient}>
+            <FirstTimeSetup>
+              {children}
+            </FirstTimeSetup>
+          </QueryClientProvider>
+        </DatabaseProvider>
+      </Provider>
+    </GestureHandlerRootView>
   )
 }
 
@@ -45,3 +51,9 @@ function FirstTimeSetup({children}: { children: React.ReactNode }) {
 
   return children;
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
