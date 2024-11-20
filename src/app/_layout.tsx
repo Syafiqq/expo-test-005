@@ -5,6 +5,7 @@ import {Provider} from "inversify-react";
 import React, {useCallback, useEffect} from "react";
 import {StyleSheet} from "react-native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {KeyboardProvider} from "react-native-keyboard-controller";
 
 import queryClient from "@/core/react-query";
 import database from "@/data/datasource/local/impl/watermelon";
@@ -27,15 +28,17 @@ function Providers({children}: { children: React.ReactNode }) {
     <GestureHandlerRootView
       style={styles.container}
     >
-      <Provider container={() => container}>
-        <DatabaseProvider database={database}>
-          <QueryClientProvider client={queryClient}>
-            <FirstTimeSetup>
-              {children}
-            </FirstTimeSetup>
-          </QueryClientProvider>
-        </DatabaseProvider>
-      </Provider>
+      <KeyboardProvider>
+        <Provider container={() => container}>
+          <DatabaseProvider database={database}>
+            <QueryClientProvider client={queryClient}>
+              <FirstTimeSetup>
+                {children}
+              </FirstTimeSetup>
+            </QueryClientProvider>
+          </DatabaseProvider>
+        </Provider>
+      </KeyboardProvider>
     </GestureHandlerRootView>
   )
 }
