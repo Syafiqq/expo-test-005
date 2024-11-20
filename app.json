@@ -1,5 +1,8 @@
 {
   "expo": {
+    "_internal": {
+      "isDebug": true
+    },
     "name": "drivers-app",
     "slug": "drivers-app",
     "plugins": [
