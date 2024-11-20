@@ -1,4 +1,5 @@
 import {DatabaseProvider} from '@nozbe/watermelondb/react'
+import {ThemeProvider} from "@react-navigation/native";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {SplashScreen, Stack} from "expo-router";
 import {Provider} from "inversify-react";
@@ -7,6 +8,7 @@ import {StyleSheet} from "react-native";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import {KeyboardProvider} from "react-native-keyboard-controller";
 
+import {useThemeConfig} from "@/core/react-navigation/use-theme-config";
 import queryClient from "@/core/react-query";
 import database from "@/data/datasource/local/impl/watermelon";
 import container from "@/di/container";
@@ -24,6 +26,8 @@ export default function RootLayout() {
 }
 
 function Providers({children}: { children: React.ReactNode }) {
+  const theme = useThemeConfig();
+
   return (
     <GestureHandlerRootView
       style={styles.container}
@@ -32,9 +36,11 @@ function Providers({children}: { children: React.ReactNode }) {
         <Provider container={() => container}>
           <DatabaseProvider database={database}>
             <QueryClientProvider client={queryClient}>
-              <FirstTimeSetup>
-                {children}
-              </FirstTimeSetup>
+              <ThemeProvider value={theme}>
+                <FirstTimeSetup>
+                  {children}
+                </FirstTimeSetup>
+              </ThemeProvider>
             </QueryClientProvider>
           </DatabaseProvider>
         </Provider>
