@@ -4,6 +4,9 @@ type TypesMap = {
 
   // local
   watermelon: symbol;
+
+  // infrastructure
+  reactQuery: symbol
 };
 
 const Types: TypesMap = {
@@ -12,6 +15,9 @@ const Types: TypesMap = {
 
   // local
   watermelon: Symbol.for('WatermelonDb'),
+
+  // infrastructure
+  reactQuery: Symbol.for('ReactQuery'),
 }
 
 export {
