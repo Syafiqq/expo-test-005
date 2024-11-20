@@ -1,3 +1,4 @@
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 import {DatabaseProvider} from '@nozbe/watermelondb/react'
 import {ThemeProvider} from "@react-navigation/native";
 import {QueryClientProvider} from "@tanstack/react-query";
@@ -37,9 +38,11 @@ function Providers({children}: { children: React.ReactNode }) {
           <DatabaseProvider database={database}>
             <QueryClientProvider client={queryClient}>
               <ThemeProvider value={theme}>
-                <FirstTimeSetup>
-                  {children}
-                </FirstTimeSetup>
+                <BottomSheetModalProvider>
+                  <FirstTimeSetup>
+                    {children}
+                  </FirstTimeSetup>
+                </BottomSheetModalProvider>
               </ThemeProvider>
             </QueryClientProvider>
           </DatabaseProvider>
